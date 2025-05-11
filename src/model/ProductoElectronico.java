@@ -9,7 +9,8 @@ public class ProductoElectronico extends Producto {
 
     public ProductoElectronico(String nombre, String codigo, double precioCompra, double precioVenta,
                                Presentacion presentacion, int garantiaMeses, String marca) {
-        super(nombre, codigo, precioCompra, precioVenta, presentacion);
+        super(nombre, codigo, precioCompra, precioVenta);
+        this.agregarPresentacion(presentacion); // Agregamos la presentación después del super
         this.garantiaMeses = garantiaMeses;
         this.marca = marca;
     }

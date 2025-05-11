@@ -1,18 +1,21 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Producto {
     protected String nombre;
     protected String codigo;
     protected double precioCompra;
     protected double precioVenta;
-    protected Presentacion presentacion;
+    protected List<Presentacion> presentaciones;  // Cambiado a lista
 
-    public Producto(String nombre, String codigo, double precioCompra, double precioVenta, Presentacion presentacion) {
+    public Producto(String nombre, String codigo, double precioCompra, double precioVenta) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.precioCompra = precioCompra;
         this.precioVenta = precioVenta;
-        this.presentacion = presentacion;
+        this.presentaciones = new ArrayList<>();  // Inicializa la lista
     }
 
     // Getters y Setters
@@ -48,11 +51,16 @@ public class Producto {
         this.precioVenta = precioVenta;
     }
 
-    public Presentacion getPresentacion() {
-        return presentacion;
+    public List<Presentacion> getPresentaciones() {
+        return presentaciones;
     }
 
-    public void setPresentacion(Presentacion presentacion) {
-        this.presentacion = presentacion;
+    public void setPresentaciones(List<Presentacion> presentaciones) {
+        this.presentaciones = presentaciones;
+    }
+
+    // Método para agregar una nueva presentación
+    public void agregarPresentacion(Presentacion presentacion) {
+        this.presentaciones.add(presentacion);
     }
 }

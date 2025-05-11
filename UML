@@ -3,6 +3,7 @@
                         +----------------------+
                         | - nombre: String     |
                         | - email: String      |
+                        | - rol: String        |  <-- Rol (admin, empleado, etc.)
                         +----------------------+
                         | +login(): boolean    |
                         +----------------------+
@@ -20,6 +21,7 @@
                         | +actualizarProducto(id, p)  |
                         | +eliminarProducto(id)       |
                         | +agregarPresentacion(id, pres)|
+                        | +eliminarPresentacion(id)   | <-- Método adicional
                         | +getStockTotal(id): int     |
                         +----------------------+
                                 |
@@ -35,6 +37,7 @@
                         +----------------------+
                         | +getStockTotal(): int        |
                         | +getPrecioUnidadMin(): double|
+                        | +updateStock(int cantidad): void | <-- Nuevo método
                         +----------------------+
                                 ▲
          ┌──────────────────────┴──────────────────────┐
@@ -45,8 +48,6 @@
 | - marca: String   |  | - fechaCaducidad:  |  | - talla: String    |
 | - garantia: int   |  |   LocalDate        |  | - genero: String   |
 +------------------+  +---------------------+  +--------------------+
-
-
 
 
 ---------------------------------------------------------------------------
@@ -76,6 +77,7 @@
 | - telefono: String        |
 +---------------------------+
 | +suministrar(Producto)    |
+| +actualizarProducto()     | <-- Método adicional
 +---------------------------+
             |
             | 1       * (asociación)
