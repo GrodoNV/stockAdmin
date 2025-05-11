@@ -1,0 +1,85 @@
+                        +----------------------+
+                        |      Usuario         |
+                        +----------------------+
+                        | - nombre: String     |
+                        | - email: String      |
+                        +----------------------+
+                        | +login(): boolean    |
+                        +----------------------+
+                                |
+                                | 1
+                                ▼
+                        +----------------------+
+                        |     Inventario       |
+                        +----------------------+
+                        | - productos: List<Producto> |
+                        +----------------------+
+                        | +crearProducto(p)           |
+                        | +listarProductos(): List<>  |
+                        | +buscarProducto(id): Producto|
+                        | +actualizarProducto(id, p)  |
+                        | +eliminarProducto(id)       |
+                        | +agregarPresentacion(id, pres)|
+                        | +getStockTotal(id): int     |
+                        +----------------------+
+                                |
+                                | 1       * (Agregación)
+                                ▼
+                        +----------------------+
+                        |      Producto        | <<abstract o base>>
+                        +----------------------+
+                        | - id: String         |
+                        | - nombre: String     |
+                        | - categoria: String  |
+                        | - presentaciones: List<Presentacion> |
+                        +----------------------+
+                        | +getStockTotal(): int        |
+                        | +getPrecioUnidadMin(): double|
+                        +----------------------+
+                                ▲
+         ┌──────────────────────┴──────────────────────┐
+         │                        │                    │
++------------------+  +---------------------+  +--------------------+
+| ProductoElectronico|  |  ProductoAlimento  |  |   ProductoRopa     |
++------------------+  +---------------------+  +--------------------+
+| - marca: String   |  | - fechaCaducidad:  |  | - talla: String    |
+| - garantia: int   |  |   LocalDate        |  | - genero: String   |
++------------------+  +---------------------+  +--------------------+
+
+
+
+
+---------------------------------------------------------------------------
+
+
++-----------------------------+
+|       Presentacion          |
++-----------------------------+
+| - tipo: String              | << "Unidad", "Caja", etc. >>
+| - cantidad: int             | << Nro de cajas o unidades >>
+| - unidadesPorPack: int      | << 1 si unidad, >1 si caja >>
+| - precioPack: double        | << Precio por cada caja o unidad >>
++-----------------------------+
+| +getStockUnidades(): int    |
+| +getPrecioUnidad(): double  |
++-----------------------------+
+
+
+---------------------------------------------------------------------------
+
+
++---------------------------+
+|        Proveedor          |
++---------------------------+
+| - id: String              |
+| - nombre: String          |
+| - telefono: String        |
++---------------------------+
+| +suministrar(Producto)    |
++---------------------------+
+            |
+            | 1       * (asociación)
+            ▼
+      +------------------+
+      |    Producto      |
+      +------------------+
