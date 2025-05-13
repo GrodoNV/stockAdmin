@@ -5,14 +5,12 @@ import java.util.List;
 
 public class Producto {
     protected String nombre;
-    protected String codigo;
     protected double precioCompra;
     protected double precioVenta;
     protected List<Presentacion> presentaciones;  // Cambiado a lista
 
-    public Producto(String nombre, String codigo, double precioCompra, double precioVenta) {
+    public Producto(String nombre, double precioCompra, double precioVenta) {
         this.nombre = nombre;
-        this.codigo = codigo;
         this.precioCompra = precioCompra;
         this.precioVenta = precioVenta;
         this.presentaciones = new ArrayList<>();  // Inicializa la lista
@@ -25,14 +23,6 @@ public class Producto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public double getPrecioCompra() {

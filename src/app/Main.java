@@ -27,15 +27,13 @@ public class Main {
                 case 1:
                     System.out.print("Nombre del producto: ");
                     String nombre = scanner.nextLine();
-                    System.out.print("Código del producto: ");
-                    String codigo = scanner.nextLine();
                     System.out.print("Precio de compra: ");
                     double compra = scanner.nextDouble();
                     System.out.print("Precio de venta: ");
                     double venta = scanner.nextDouble();
                     scanner.nextLine(); // limpiar buffer
 
-                    Producto p = new Producto(nombre, codigo, compra, venta);
+                    Producto p = new Producto(nombre, compra, venta);
 
                     while (true) {
                         System.out.print("Agregar presentación (s/n)? ");
