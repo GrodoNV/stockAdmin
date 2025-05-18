@@ -1,10 +1,27 @@
 package model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "presentaciones")
 public class Presentacion {
-    private String tipo;  // "Unidad", "Caja", etc.
-    private int cantidad; // Número de cajas o unidades
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String tipo;
+    private int cantidad;
     private int unidadesPorPack;
     private double precioPack;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id", nullable = false)
+    private Producto producto;
+
+    public Presentacion() {
+        // Constructor por defecto
+    }
 
     public Presentacion(String tipo, int cantidad, int unidadesPorPack, double precioPack) {
         this.tipo = tipo;
@@ -13,13 +30,12 @@ public class Presentacion {
         this.precioPack = precioPack;
     }
 
-    // Getters y Setters
-    public String getTipo() {
-        return tipo;
+    public Long getId() {
+        return id;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public String getTipo() {
+        return tipo;
     }
 
     public int getCantidad() {
@@ -46,12 +62,18 @@ public class Presentacion {
         this.precioPack = precioPack;
     }
 
-    // Método para obtener el stock de unidades
-    public int getStockUnidades() {
-        return cantidad * unidadesPorPack;  // Esto te da el total de unidades por presentación
+    public Producto getProducto() {
+        return producto;
     }
 
-    // Método para obtener el precio por unidad
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public int getStockUnidades() {
+        return cantidad * unidadesPorPack;
+    }
+
     public double getPrecioUnidad() {
         return precioPack / unidadesPorPack;
     }

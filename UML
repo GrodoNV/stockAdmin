@@ -1,87 +1,97 @@
-                        +----------------------+
-                        |      Usuario         |
-                        +----------------------+
-                        | - nombre: String     |
-                        | - email: String      |
-                        | - rol: String        |  <-- Rol (admin, empleado, etc.)
-                        +----------------------+
-                        | +login(): boolean    |
-                        +----------------------+
-                                |
-                                | 1
-                                ▼
-                        +----------------------+
-                        |     Inventario       |
-                        +----------------------+
-                        | - productos: List<Producto> |
-                        +----------------------+
-                        | +crearProducto(p)           |
-                        | +listarProductos(): List<>  |
-                        | +buscarProducto(id): Producto|
-                        | +actualizarProducto(id, p)  |
-                        | +eliminarProducto(id)       |
-                        | +agregarPresentacion(id, pres)|
-                        | +eliminarPresentacion(id)   | <-- Método adicional
-                        | +getStockTotal(id): int     |
-                        +----------------------+
-                                |
-                                | 1       * (Agregación)
-                                ▼
-                        +----------------------+
-                        |      Producto        | <<abstract o base>>
-                        +----------------------+
-                        | - id: String         |
-                        | - nombre: String     |
-                        | - categoria: String  |
-                        | - presentaciones: List<Presentacion> |
-                        +----------------------+
-                        | +getStockTotal(): int        |
-                        | +getPrecioUnidadMin(): double|
-                        | +updateStock(int cantidad): void | <-- Nuevo método
-                        +----------------------+
-                                ▲
-         ┌──────────────────────┴──────────────────────┐
-         │                        │                    │
-+------------------+  +---------------------+  +--------------------+
-| ProductoElectronico|  |  ProductoAlimento  |  |   ProductoRopa     |
-+------------------+  +---------------------+  +--------------------+
-| - marca: String   |  | - fechaCaducidad:  |  | - talla: String    |
-| - garantia: int   |  |   LocalDate        |  | - genero: String   |
-+------------------+  +---------------------+  +--------------------+
+                            +------------------+
+                            |     Usuario      |
+                            +------------------+
+                            | - nombre         |
+                            | - email          |
+                            | - rol            |
+                            +------------------+
+                            | +login()         |
+                            +------------------+
+                                    |
+                                    | usa
+                                    v
+                      +-----------------------------+
+                      |     InventarioService       |
+                      +-----------------------------+
+                      | +crearProducto()            |
+                      | +listarProductos()          |
+                      | +registrarEntradaSalida()   |
+                      +-----------------------------+
+                                    |
+                                    | gestiona
+                                    v
+                          +----------------------+
+                          |     Inventario       |
+                          +----------------------+
+                          | - productos: List<>  |
+                          +----------------------+
+                          | +agregarProducto()   |
+                          | +eliminarProducto()  |
+                          | +buscarProducto()    |
+                          +----------------------+
+                                    |
+                                    | composición ◆
+                                    v
+                         +------------------------+
+                         |       Producto         |
+                         +------------------------+
+                         | - id                  |
+                         | - nombre              |
+                         | - categoria           |
+                         +------------------------+
+                         | +getStockTotal()      |
+                         | +getPrecioUnidadMin() |
+                         +------------------------+
+                                    |
+        ┌──────────────────────────┼──────────────────────────┐
+        |                          |                          |
+        v                          v                          v
++------------------+     +-------------------+      +----------------------+
+| ProductoJuguete  |     | ProductoElectronico|      (Futuras extensiones...)
++------------------+     +-------------------+
+| - edadMinima     |     | - marca            |
+| - material       |     | - garantia         |
++------------------+     +-------------------+
 
+                                    |
+                                    | agregación ◇
+                                    v
+                        +---------------------------+
+                        |       Presentacion        |
+                        +---------------------------+
+                        | - tipo                   |
+                        | - cantidad               |
+                        | - unidadesPorPack        |
+                        | - precioPack             |
+                        +---------------------------+
+                        | +getStockUnidades()      |
+                        | +getPrecioUnidad()       |
+                        +---------------------------+
 
----------------------------------------------------------------------------
+                                    ▲
+                                    |
+                                    | asociación (1:N)
+                                    |
+                          +-------------------+
+                          |     Movimiento    |
+                          +-------------------+
+                          | - tipo: Entrada/Salida
+                          | - fecha            |
+                          | - cantidad         |
+                          +-------------------+
+                          | +registrar()       |
+                          +-------------------+
 
-
-+-----------------------------+
-|       Presentacion          |
-+-----------------------------+
-| - tipo: String              | << "Unidad", "Caja", etc. >>
-| - cantidad: int             | << Nro de cajas o unidades >>
-| - unidadesPorPack: int      | << 1 si unidad, >1 si caja >>
-| - precioPack: double        | << Precio por cada caja o unidad >>
-+-----------------------------+
-| +getStockUnidades(): int    |
-| +getPrecioUnidad(): double  |
-+-----------------------------+
-
-
----------------------------------------------------------------------------
-
-
-+---------------------------+
-|        Proveedor          |
-+---------------------------+
-| - id: String              |
-| - nombre: String          |
-| - telefono: String        |
-+---------------------------+
-| +suministrar(Producto)    |
-| +actualizarProducto()     | <-- Método adicional
-+---------------------------+
-            |
-            | 1       * (asociación)
-            ▼
-      +------------------+
-      |    Producto      |
-      +------------------+
+                                    ▲
+                                    |
+                                    | asociación ◇
+                                    |
+                          +------------------+
+                          |    Proveedor     |
+                          +------------------+
+                          | - id             |
+                          | - nombre         |
+                          | - telefono       |
+                          +------------------+
+                          | +suministrar()   |
+                          +------------------+

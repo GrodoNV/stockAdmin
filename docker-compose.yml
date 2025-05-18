@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: admin_stock_db  # Nombre de la base de datos
+      POSTGRES_USER: postgres_user  # Usuario de la base de datos
+      POSTGRES_PASSWORD: postgres_password  # Contraseña del usuario
+    ports:
+      - "5432:5432"  # Puerto local 5432 mapeado al puerto 5432 del contenedor
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Volumen persistente para los datos
+
+volumes:
+  postgres_data:

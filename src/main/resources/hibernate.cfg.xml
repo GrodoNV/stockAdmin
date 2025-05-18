@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Conexión a PostgreSQL -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/admin_stock_db</property>
+        <property name="hibernate.connection.username">postgres_user</property>
+        <property name="hibernate.connection.password">postgres_password</property>
+
+        <!-- Dialecto de PostgreSQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Mostrar SQL ejecutado por Hibernate -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Crear o actualizar automáticamente las tablas -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Evita el uso de conexiones innecesarias si no se necesita el contexto completo -->
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <!-- Mapear tu clase de entidad -->
+        <mapping class="model.Producto"/>
+        <mapping class="model.Presentacion"/>
+        <mapping class="model.Inventario"/>
+
+
+    </session-factory>
+</hibernate-configuration>
